@@ -1,1 +1,1 @@
-# Git
+# Kimu's Wiki
