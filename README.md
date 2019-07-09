@@ -1,1 +1,1 @@
-# Kimu's Wiki
+# Wiki
