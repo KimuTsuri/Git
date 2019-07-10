@@ -1,6 +1,6 @@
 # Homebrew のインストール
 
-Homebrew 公式サイトを参考にし, Homebrew を導入します.
+Homebrew 公式サイトを参考にし, Homebrew を導入します.  
 https://docs.brew.sh/Installation
 
 ## Xcode のインストール
@@ -9,23 +9,23 @@ Homebrew を使うには, Xcode の Command Line Tools が必要になります.
 ターミナルで次のコマンドを実行し, Xcode をインストールします. 
 
 ```
-xcode-select --install
+$ xcode-select --install
 ```
 
 コマンドを実行すると,  インストーラーが表示されます.
 インストーラーに従ってインストールを完了させます.
 
 ```
-xcode-select -v
+$ xcode-select -v
 ```
 
 を実行する.
 これで Xcode のバージョンが表示されれば, インストールが出来ています.
 
-# Homebrew のインストール
+## Homebrew のインストール
 
 ```
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install
 ```
 
 このスクリプトをターミナルに貼り付け実行して下さい.スクリプトは, Homebrew 公式サイトにあります.
