@@ -1,6 +1,6 @@
 # Homebrew のインストール
 
-Homebrew 公式サイトを参考にし, Homebrew を導入します.
+Homebrew 公式サイトを参考にし, Homebrew を導入します.  
 https://docs.brew.sh/Installation
 
 ## Xcode のインストール
