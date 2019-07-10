@@ -46,6 +46,7 @@ brew search "git"
 また, 検索文字列をスラッシュで囲むと, Ruby の正規表現で [formula] を検索できます.
 ```
 brew search "/\bgit\b/"
+```
 
 ## その他
 インストールした formula を一覧表示
