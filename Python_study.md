@@ -167,14 +167,14 @@ ValueError: invalid literal for int() with base 10: 'aa'
 
 ## 特殊な文字列
 
-空文字列
+### 空文字列
 ```
 >>> my_str = ' '
 >>> type(my_str)
 <class 'str'>
 ```
 
-エスケープシーケンス
+### エスケープシーケンス
  - `\t`
 ```
 >>> hello = 'Hello\tWorld'
@@ -195,7 +195,7 @@ World
 Hello\n
 ```
 
-文字列の属性の確認
+## 文字列の属性の確認
 ```
 >>> my_str = 'Hello'
 >>> dir(my_str)
@@ -384,12 +384,268 @@ IndexError: string index out of range
 ```
 
 
-# list, tuple
+# list型
+```
+>>> int_list = [100, 200, 300, 400, 500]
+>>> str_list = ["hoge", "fuga", "bar", "foo", "piyo"]
+>>> mix_list = [["egg", 100], ["meat", 200], ["fish", 300]]
+```
+listとは、objectを順番に格納する入れ物
 
+```
+>>> my_str = 'Python, Rubby'
+>>> my_list = my_str.split(',')
+>>> my_list
+['Python', ' Rubby']
+```
+自分でリストを作ってみる
+```
+>>> my_list = [1, True, False, 'Hello']
+```
+空のリストに格納する
+```
+>>> my_list = []
+>>> my_list = list()
+>>> my_list.append('Jiro')
+>>> my_list.append('Taro')
+>>> my_list
+['Jiro', 'Taro']
+```
+他の文字列をリストに格納する
+```
+>>> my_list = list('Python')
+>>> my_list
+['P', 'y', 't', 'h', 'o', 'n']
+```
+## listを操る
+```
+>>> numbers = [1, 2, 3, 4, 5]
+>>> len(numbers)
+5
+>>> sum(numbers)
+15
+>>> max(numbers)
+5
+>>> min(numbers)
+1
+>>> numbers = [1, 2, 3]
+>>> numbers1 = [1, 2, 3]
+>>> numbers2 = [4, 5, 6]
+>>> numbers3 = numbers1 + numbers2
+>>> numbers3
+[1, 2, 3, 4, 5, 6]
+```
+### insert関数
+```
+>>> numbers.insert(1, 1.5)
+>>> numbers
+[1, 1.5, 2, 3, 4, 5]
+```
+### pop関数
+```
+>>> numbers = [1, 2, 3, 4, 5]
+>>> numbers.pop(0)
+1
+>>> numbers
+[2, 3, 4, 5]
+>>> numbers.pop()
+5
+>>> numbers
+[2, 3, 4]
+>>> deleted = numbers.pop()
+>>> deleted
+4
+```
+### remove関数
+```
+>>> my_list = ['a', 't', 'u']
+>>> my_list.remove('t')
+>>> my_list
+['a', 'u']
+```
+### index関数 in関数 count関数
 
-Mutable : 変更可能な変数の型
-Immutable : 内容を変更できない変数の型
-Sequence : 添字でアクセスできる
+```
+>>> numbers = [1, 2, 3]
+>>> numbers.index(2)
+1
+>>> 1 in numbers
+True
+>>> 9 in numbers
+False
+>>> numbers.count(1)
+1
+>>> numbers.count(9)
+0
+```
+
+### join関数
+
+```
+>>> parts = ['今日は', 'とても', 'いい天気']
+>>> poem = '\n'.join(parts)
+>>> print(poem)
+今日は
+とても
+いい天気
+```
+
+### sort関数
+
+```
+>>> numbers = [5, 3, 4, 7, 9, 8]
+>>> numbers.sort()
+>>> numbers
+[3, 4, 5, 7, 8, 9]
+>>> numbers.sort(reverse=True)
+>>> numbers
+[9, 8, 7, 5, 4, 3]
+```
+
+# tuple型
+
+```
+>>> my_tuple = ()
+>>> my_tuple = tuple()
+>>> my_tuple = (1, True, False, 'Hello')
+>>> my_tuple = 1, True, False, 'Hello'
+>>> type(my_tuple)
+<class 'tuple'>
+>>> my_tuple
+(1, True, False, 'Hello')
+```
+
+```
+>>> one_tuple = 'Python'
+>>> one_tuple
+'Python'
+>>> type(one_tuple)
+<class 'str'>
+>>> my_tuple = 'Python', 'Ruby'
+>>> my_tuple[0]
+'Python'
+>>> type(my_tuple)
+<class 'tuple'>
+```
+
+注意！tupleには`append`メソッドがない.
+
+## tupleとlistの違い
+tupleを使うメリット
+- 中身が変更されないことが保証されている.
+- 辞書型のオブジェクトのキーとして利用できる.(Immutableだから)
+
+# dict型
+
+list型 : 1に対してobjectを紐付ける  
+dict型 : 名前に対してobjectを紐付ける  
+通常の辞書型は、順番を持たない！
+```
+>>> my_dict = {key1 : value1, key2 : value2}
+```
+空の辞書
+```
+>>> source = {}
+>>> source = dict()
+```
+辞書型に変換
+```
+>>> names = [['さとう', '太郎'],['たなか', '次郎']]
+>>> names_dict = dict(names)
+>>> names_dict
+{'さとう': '太郎', 'たなか': '次郎'}
+
+>>> a = ['ab', 'cd', 'ef']
+>>> dict(a)
+{'a': 'b', 'c': 'd', 'e': 'f'}
+```
+
+## dictを操る
+
+### get
+```
+>>> score = {}
+>>> science = score.get('science', 'no data')
+>>> science
+'no data'
+>>> 
+>>> score['science'] = 100
+>>> science = score.get('science', 'no data')
+100
+```
+二番目の引数をいれなければ, データがない場合`None`となる. 
+
+### update
+辞書に追加
+
+```
+>>> band_members = {'ギター' : 'さとう', 'ベース' : 'よしだ'}
+>>> new_members  = {'ドラム' : 'たなか'}
+>>> band_members.update(new_members)
+>>> band_members
+{'ギター': 'さとう', 'ベース': 'よしだ', 'ドラム': 'たなか'}
+```
+### pop
+辞書の削除
+```
+>>> band_members = {'ギター' : 'さとう', 'ベース' : 'よしだ'}
+>>> deleted = band_members.pop('ギター')
+>>> deleted
+'さとう'
+>>> band_members
+{'ベース': 'よしだ', 'ドラム': 'たなか'}
+```
+
+### setdefault
+```
+>>> base = band_members.setdefault('ベース', '滝沢')
+>>> base
+'よしだ'
+>>> guitar = band_members.setdefault('ギター', '滝沢')
+>>> guitar
+'滝沢'
+```
+
+# set型
+
+```
+>>> my_set = {1, 2, 3}
+>>> my_set
+{1, 2, 3}
+>>> type(my_set)
+<class 'set'>
+>>> my_set = set()
+```
+listからsetに変換
+```
+>>> my_list = [1, 2, 3, 3]
+>>> my_set = set(my_list)
+>>> my_set
+{1, 2, 3}
+```
+setは, 重複しない.
+
+## 集合
+
+```
+>>> mutuble = {'list', 'dict', 'set'}
+>>> immutable = {'str', 'number', 'tuple'}
+>>> sequence = {'list', 'tuple', 'str'}
+>>> mutable & sequence
+{'list'}
+>>> mutuble | sequence
+{'tuple', 'list', 'set', 'dict', 'str'}
+>>> mutuble - sequence
+{'dict', 'set'}
+>>> mutuble ^ sequence
+{'tuple', 'dict', 'set', 'str'}
+```
+
+Mutable or Imutable, Sequence まとめ  
+
+Mutable : 変更可能な変数の型  
+Immutable : 内容を変更できない変数の型  
+Sequence : 添字でアクセスできる  
 
 | | Mutable or Immutable | Sequence |
 |-|-|-|
@@ -400,16 +656,90 @@ Sequence : 添字でアクセスできる
 | dict 型       | Mutable   | -         |
 | set 型        | Mutable   | -         |
 
-## list
+# 条件分岐
+
+## if, else
 ```
->>> int_list = [100, 200, 300, 400, 500]
->>> str_list = ["hoge", "fuga", "bar", "foo", "piyo"]
->>> mix_list = [["egg", 100], ["meat", 200], ["fish", 300]]
+names = ['田中', '佐藤', '吉田']
+
+if '田中' in names:
+  print('田中さんがいました')
+else:
+  print('田中さんはいません')
+
+if '滝沢' in names:
+  print('滝沢さんがいました')
+else:
+  print('滝沢さんはいません')
+
+print('処理を終了します')
+```
+実行結果
+```
+$ python3 sample_01.py
+田中さんがいました
+滝沢さんはいません
+処理を終了します
 ```
 
-## dict
+## 比較演算子
+
+| 演算 | 処理 |
+|-|-|
+|　`a == b`　| aとbが等しければ, `True` |
+|　`a =! b`　| aとbが等しくなければ, `True` |
+|　`a < b`　 | aがbより小さければ, `True` |
+|　`a <= b`　| aがb以下ならば, `True`(等しくても`True`) |
+|　`a > b`　 | aがbより大きければ, `True` |
+|　`a >= b`　| aがb以上ならば, `True`(等しくても`True`) |
+|　`a in b`　|  |
+
+## bool演算子
+
+| 演算 | 処理 |
+|-|-|
+| `式A and 式B` | 式Aと式Bが共に`True`ならば, `True` |
+| `式A or 式B`  | 式A, 式Bどちらかが`True`ならば, `True` |
+| `not 式A`| 式Aが`False`ならば, `True` |
+
+## Falseと評価されるobject
+
+* 空文字列 `''`
+* 空タプル `（）`
+* 空リスト `[]`
+* 空辞書 `{}`
+* 空セット `set()`
+* 整数の0, 浮動小数点数の0.0
+* False
+* None
+
+# 繰り返し処理
+
+## for文
 ```
->>> my_dict = {key1 : value1, key2 : value2}
+names = ['田中', '佐藤', '吉田']
+
+for name in names:
+  print(name)
+```
+実行結果
+```
+$ python3 sample_02.py 
+田中
+佐藤
+吉田
 ```
 
 
+## range関数
+指定回数の繰り返し
+
+## while文
+
+## break, continue, else
+
+
+# 内包表記
+
+
+# 
