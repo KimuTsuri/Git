@@ -165,14 +165,226 @@ ValueError: invalid literal for int() with base 10: 'aa'
 >>>
 ```
 
-## 特殊な文字列・文字列どうしの計算
+## 特殊な文字列
 
+空文字列
+```
+>>> my_str = ' '
+>>> type(my_str)
+<class 'str'>
+```
+
+エスケープシーケンス
+ - `\t`
+```
+>>> hello = 'Hello\tWorld'
+>>> print(hello)
+Hello   World
+```
+ - `\n`(改行)
+```
+>>> print(hello)
+>>> print(text)
+Hello
+World
+```
+ - エスケープシーケンスを表示させる
+```
+>>> text = 'Hello\\n'
+>>> print(text)
+Hello\n
+```
+
+文字列の属性の確認
+```
+>>> my_str = 'Hello'
+>>> dir(my_str)
+['__add__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getnewargs__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mod__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__rmod__', '__rmul__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'capitalize', 'casefold', 'center', 'count', 'encode', 'endswith', 'expandtabs', 'find', 'format', 'format_map', 'index', 'isalnum', 'isalpha', 'isascii', 'isdecimal', 'isdigit', 'isidentifier', 'islower', 'isnumeric', 'isprintable', 'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 'maketrans', 'partition', 'replace', 'rfind', 'rindex', 'rjust', 'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 'title', 'translate', 'upper', 'zfill']
+```
+
+## 文字列の便利なmethod
+
+### format
+
+```
+>>> fmt = '私の名前は{}です'
+>>> name = '太郎'
+>>> fmt.format(name)
+'私の名前は太郎です'
+
+>>> fmt = '私の名前は{}{}です'
+>>> fmt.format('さとう', '太郎')
+'私の名前はさとう太郎です'
+
+>>> fmt = '{last_name} {first_name}'
+>>> fmt.format(last_name='さとう', first_name='太郎')
+'さとう 太郎'
+```
+
+### fstrings
+
+```
+>>> last_name = 'さとう'
+>>> first_name = '太郎'
+>>> f'{last_name} {first_name}'
+'さとう 太郎'
+```
+
+昔からの書き方
+```
+>>> name = '太郎'
+>>> '私の名前は%sです' % name
+'私の名前は太郎です'
+```
+
+### split
+
+```
+>>> languages = 'Python, Ruby, PHP, Perl'
+>>> languages.split(',')
+['Python', ' Ruby', ' PHP', ' Perl']
+```
+
+### separator
+
+```
+>>> lang_list = languages.split(',')
+>>> separator = ','
+>>> separator.join(lang_list)
+'Python, Ruby, PHP, Perl'
+>>> ','.join(lang_list)
+'Python, Ruby, PHP, Perl'
+```
+
+### replace
+
+```
+>>> poem = '今日はとてもいい天気でした'
+>>> poem.replace('今日', '昨日')
+'昨日はとてもいい天気でした'
 ```
 
 
+### count
+
+```
+>>> text = 'Hello, Hello, Hello'
+>>> text.count('Hello')
+3
+```
+
+### startswith
+
+```
+>>> name = 'さとう太郎'
+>>> name.startswith('さとう')
+True
+>>> name.startswith('よしだ')
+False
+```
+
+### endswith
+
+```
+>>> name = 'さとう太郎'
+>>> name.endswith('太郎')
+True
+```
+
+### find
+
+```
+>>> text = 'Hello World'
+>>> text.find('Hello')
+0
+>>> text.find('H')
+0
+>>> text.find('jjjj')
+-1
+```
+0から始まり, 見つからなければ`-1`.
+
+### index
+
+```
+>>> text = 'Hello World'
+>>> text.index('Hello')
+0
+>>> text.index('jjjj')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: substring not found
+```
+
+### in 演算子
+
+含まれていれば`True`, 含まれていなければ`False`
+
+```
+>>> name = 'さとう太郎'
+>>> '太郎' in name
+True
+>>> 'たろう' in name
+False
+```
+
+### strip
+
+```
+>>> text = '    Hello World     '
+>>> text.strip()
+'Hello World'
+>>> text.lstrip()
+'Hello World     '
+>>> text.rstrip()
+'    Hello World'
+```
+
+## シーケンス型としての文字列操作
+
+文字列から文字を取り出す
+```
+>>> text = 'あいうえお'
+>>> text[0]
+'あ'
+>>> text[1]
+'い'
+>>> text[-1]
+'お'
+>>> text[5]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: string index out of range
+>>> text_len = len('あいうえお')
+>>> text_len
+5
+>>> text[text_len-1]
+'お'
+```
+
+スライス処理
+```
+>>> text[1:4]
+'いうえ'
+>>> text[1:]
+'いうえお'
+>>> text[:100]
+'あいうえお'
+```
+
+ステップ指定
+```
+>>> text[::2]
+'あうお'
+>>> text[1:4:2]
+'いえ'
+>>> text2 = text[1:4]
+>>> text2[::2]
+'いえ'
 ```
 
 
+# list, tuple
 
 
 Mutable : 変更可能な変数の型
@@ -188,14 +400,16 @@ Sequence : 添字でアクセスできる
 | dict 型       | Mutable   | -         |
 | set 型        | Mutable   | -         |
 
-list 型
+## list
 ```
 >>> int_list = [100, 200, 300, 400, 500]
 >>> str_list = ["hoge", "fuga", "bar", "foo", "piyo"]
 >>> mix_list = [["egg", 100], ["meat", 200], ["fish", 300]]
 ```
 
-dict 型
+## dict
 ```
 >>> my_dict = {key1 : value1, key2 : value2}
 ```
+
+
