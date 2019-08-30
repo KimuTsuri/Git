@@ -730,16 +730,204 @@ $ python3 sample_02.py
 吉田
 ```
 
+### 便利なforループ
+演習1
+```
+names = ['田中', '鈴木', '佐藤']
+index = 0
+for name in names:
+  massage = '{0}番目 {1}'.format(index, name)
+  print(massage)
+  index +=1
+```
+組み込み関数`enumerate`を用い, pythonらしい書き方に変更してみる.
+```
+names = ['田中', '鈴木', '佐藤']
+for index, name in enumerate(names):
+  massage = '{0}番目 {1}'.format(index, name)
+  print(massage)
+```
+
+演習2
+```
+foods = ['納豆', 'ヨーグルト', 'チャーハン']
+juices = ['コーラ', 'コーヒー', 'カフェラテ']
+for food, juice in zip(foods, juices):
+  print(food, juice)
+```
+リストを複数使用する場合は, 組み込み関数`zip`を使用すると簡単に書ける. 
+`zip`関数の使用は短い方に合わせる.  
 
 ## range関数
 指定回数の繰り返し
+```
+for i in range(1, 101, 2):
+  print(i)
+```
+1〜100まで2足しあげて繰り返し.  
+101番目は含まない.  
+実行結果
+```
+$ python3 sample_03.py
+1
+3
+5  
+(省略)  
+45
+99
+```
+リスト型にrangeで詰めていく.
+```
+my_list = list(range(1,101)
+```
+パフォーマンスのためlist型に直接詰めていくことはできない.
 
 ## while文
-
-## break, continue, else
-
+```
+flag = True
+while flag:
+  user_input = input()
+  if user_input == 'exit':
+    flag = False
+```
+### break
+```
+while True:
+  user_input = input()
+  if user_input == 'exit':
+    break
+```
+### continue
+```
+while True:
+  user_input = input()
+  if user_input == 'exit':
+    break
+  elif user_input == 'skip':
+    continue
+  massage = 'あなたの入力は, {0}でした'.format{user_input}
+  print{massage}
+```
+### else
+```
+names = ['田中太郎', '佐藤次郎', '鈴木三郎']
+for name in names:
+  if names.endswith('三郎'):
+    print('います')
+    break
+else:
+  print('いません')
+```
 
 # 内包表記
+## 基本的な内包表記
+```
+numbers = [1,5,6,11,3,5,7]
+squares = []
+for num in numbers:
+  squares.append(num**2)
+print(squares)
+```
+リスト内包表記へ
+```
+numbers = [1,5,6,11,3,5,7]
+squares = [num**2 for in numbers]
+print(squares)
+```
+## 文字列のリストの内包表記
+一文字ずつ出力
+```
+words = ['python', 'django']
+one_words = [char for word in words for char in word]
+print(one_words)
+```
+
+## 1〜10までのサンプルを作成する
+```
+numbers = [x for x in range(1,11)]
+print(numbers)
+```
+偶数サンプル
+```
+even_numbers = [x for x in range(1,11) if x%2 == 0]
+print(even_numbers)
+```
+奇数サンプル
+```
+odd_numbers = [x for x in range(1,11) if x%2 == 1]
+print(odd_numbers)
+```
+
+## 二次元配列を作成する
+```
+tuble = [[] for _ in range(1, 10)]
+print(tuble)
+```
+99の表を作ってみる.
+```
+tuble = [[x*y for in range(1,10)] for y in range(1, 10)]
+print(tuble)
+```
+
+# ファイルを扱う
+
+## ファイルの書き込み
+```
+text = ***おはよう
+こんにちは
+こんばんわ***
+
+# ファイルを書き込むためのobject
+file = open('hello.txt', 'w', encoding='utf-8')
+
+# ファイルに書き込み
+file.write(text)
+
+# ファイルを閉じる
+file.close()
+```
+モード`a` : ファイルへの追記
+```
+file = open('hello.txt', 'a', encoding='utf-8')
+```
+モード`x` : ファイルがない場合だけ書き込み, ある場合は`exit`
+```
+file = open('hello.txt', 'a', encoding='utf-8')
+```
+モード`wt` : バイナリモード
+```
+file = open('a.png', 'wt')
+```
+with文でファイルの書き込み  
+ファイルの閉じ忘れ防止になる.
+```
+text = ***おはよう
+こんにちは
+こんばんわ***
+
+# 処理が終われば自動的にファイルを閉じる.
+with open('hello.txt', 'w', encoding='utf-8') as file:
+ file.write(text)
+```
+
+## ファイルの読み込み
+```
+file = open('hello.txt', 'r', encoding='utf-8)
+src = file.read()
+print(src)
+```
+with文でファイルの読み込み
+```
+with open('hello.txt), 'r', encoding='utf-8) as file:
+ for line in file:
+   print (line, end='')
+```
+printは自動的に改行されるため, 空文字列`end=''`を入れている.
+
+# 関数
+
+* 繰り返し出てくるコードを再利用する.
+* 大きいプログラムを分割する.
+* 他の開発者に, 便利な機能を提供する.
 
 
-# 
