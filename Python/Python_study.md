@@ -930,4 +930,91 @@ printは自動的に改行されるため, 空文字列`end=''`を入れてい�
 * 大きいプログラムを分割する.
 * 他の開発者に, 便利な機能を提供する.
 
+名前が6文字以上かチェックする
+```
+def check_name(name):
+  if len(name)>=6:
+    return True
+  else:
+    return False
+
+name = input()
+result = check_name(name)
+
+if result:
+  print('OK')
+else:
+  print('名前が短いです.')
+```
+
+## デフォルト引数
+
+デフォルトの値を持つ引数
+```
+def hello(text, name = '匿名')
+  print(name, text)
+
+hello()
+```
+必須の引数と, デフォルト引数を混ぜる場合は, 先に必須の引数を入れる.  
+今回だと, `text`が必須の引数.`name`がデフォルト匿名の引数.  
+
+
+## 任意の関数の引数を受け取る
+
+`*`をつけることで, 1引数をまとめることができる.
+```
+def hello(*args):
+  print(args)
+
+hallo()
+hello('こんにちは')
+hello('こんばんは', 'おはよう', 'ハロー')
+```
+
+`**`でキーワード引数をまとめることができる.
+```
+def hello(*args, **kwargs):
+  print(args, kwargs)
+
+hallo()
+hello('こんにちは', a=1) 
+hello('こんばんは', 'おはよう', 'ハロー', a=1, b=2, c=3)
+```
+
+## 特殊な引数の渡し方
+```
+def hello(text, *, name='太郎')
+  print(text, name)
+
+hello('こんにちは')
+hello('こんにちは', name = '田中')
+```
+
+## Local変数 Global変数
+
+Global変数 : 関数の外で定義した変数  
+Local : 関数の中で定義した狭い範囲での変数
+
+# Class
+
+## 特殊メソッド
+
+ある特殊な状況下で, 暗黙のうちに読み出されるメソッド
+
+* `init`
+* `len`
+* `iter`
+* `next`
+
+
+# Error
+
+* `ValueError` : 数字を入れるところに文字を入れた
+* `ZeroDivisionError` : 数字を入れるところに0を入れた
+
+などなど
+
+
+
 
