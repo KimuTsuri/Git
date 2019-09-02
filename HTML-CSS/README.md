@@ -42,6 +42,7 @@ idの書き方
  color:blue;
  background-color:black;
 }
+```
 注意! 同じid名を2度使うことは出来ない.  
 id の適用方法
 ```
