@@ -1,2 +1,0 @@
-# HackerRank
-Hacker Rank Challenge

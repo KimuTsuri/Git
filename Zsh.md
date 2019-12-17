@@ -49,13 +49,6 @@ chshを実行して, ログインシェルを変更します.
 chsh -s /usr/local/bin/zsh
 ```
 
-## Zsh の設定
-
-
-
-### .zshrc の設定
-
-
 ## Bash から Zsh へお引越し
 
 bash の `.bash_profile` を, zsh の `.zprofile` にお引越し, `.bashrc` を `.zshrc` にお引越しします.
