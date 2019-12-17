@@ -1,5 +1,0 @@
-# Wiki
-
-## Git
-
-## Python
