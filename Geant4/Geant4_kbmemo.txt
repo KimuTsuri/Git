@@ -1,0 +1,138 @@
+＜準備＞
+自分の~/.bashrcに（$emacs -nw ~/.bashrc）
+
+# ROOT 6.10 
+#source /usr/local/ROOT6/root-6.10.00/cmake_build/bin/thisroot.sh 
+# ROOT 5.34 
+source /usr/local/ROOT5/root/bin/thisroot.sh 
+# Geant4 
+source /usr/local/Geant4/G4_install/bin/geant4.sh 
+
+以上を書き込む。
+
+＜exampleの実行＞
+サーバーの
+/usr/local/Geant4/geant4.10.01.p03/examples/basic
+以下にある B1 ディレクトリを丸ごと自分のホームディレクトリ以下にコピーする。
+$cp -r /usr/local/Geant4/geant4.10.01.p03/examples/basic/B1 ~/  
+
+$mkdir B1work　//B1workディレクトリを生成
+$cd B1work　//B1workに移動
+$cmake ../B1　//cmakeでMakefileを生成
+- - The C compiler ....
+- - ...
+...
+- - Build files have been written to: ...
+$make //実行ファイルを作成
+Scanning dependencies of target exampleB1
+[12%] Building CXX ...
+[25%] ...
+...
+[100%] Build target exampleB1
+$ls  //フォルダの中身確認
+$./exampleB1  //exampleB1の実行。うまくいけばビジュアライズされて立ち上がる。
+$/run/baemOn 1  //と入力すれば粒子が 1 つ入射されるはずである。
+$exit  //終了
+
+or
+
+$./exampleB1 run1.mac //run1.macを使ったexampleB1の実行。ビジュアライズ化はしない
+
+
+$cd ~/B1/src 
+$ls　//srcの中身を見る。exampleB1のソースコードが並んでいる。
+#B1RunAction.cc#           B1EventAction.cc             B1RunAction.cc
+B1ActionInitialization.cc  B1PrimaryGeneratorAction.cc  B1SteppingAction.cc
+B1DetectorConstruction.cc  B1Run.cc
+  //ActionInitialization.cc->文字通り最初の操作を設定できるが、このプログラムにおいては特にすることは
+ない。
+  //DetectorConstruction.cc->構造物・検出器
+  //EventAction.cc ->eventごとの情報をまとめる
+  //PrimaryGeneratorAction.cc->ビームなどの初期設定を決める。
+  //RunAction.cc->Run関連
+  //SteppingAction.cc->stepごとの情報を取り出す
+$less B1DetectorConstruction.cc  //B1DetectorConstruction.ccの中を見れる。(見るだけ)
+　//lessから戻るときは q 
+$emacs -nw B1DetectorConstruction.cc  //B1DetectorConstruction.ccの中を見れる＆いじれる
+  //emacsから戻るときはCtrl-x Ctrl-c
+$cd ../include  //~/B1/include/に移動
+$ls　//includeの中を見る。ヘッダーファイルが並んでいる。
+B1ActionInitialization.hh  B1PrimaryGeneratorAction.hh  B1SteppingAction.hh
+B1DetectorConstruction.hh  B1Run.hh
+B1EventAction.hh           B1RunAction.hh
+
+
+
+B2~B5も同様。
+exampleB4はrootファイルの出力ができるようにコードが書かれている。
+
+
+＜自分用にコードをいじる＞
+$cp -r ~/B4/B4a ~/C1/  //ホームにB1と中身が同じC1フォルダ("C1"はなんでもおっけー)を作る
+$mkdir C1work  //C1workフォルダを作成
+$ls  //ホームディレクトリの中身を見る。C1workができているか確認。
+$cd C1work  //C1workに移動
+$cmake ../C1  //Makefile作成
+$make　//実行ファイル作成
+$ls //exampleB4aができているか確認（この時点ではexample""B4a""）
+$cd ~/C1/src　//~/C1/srcに移動
+$ls　//srcの中身を見る。exampleB4aのソースコードが並んでいる。
+#B4DetectorConstruction.cc#    B4RunAction.cc
+#B4PrimaryGeneratorAction.cc#  B4RunAction.cc~
+#B4aSteppingAction.cc#         B4aActionInitialization.cc
+B4DetectorConstruction.cc      B4aEventAction.cc
+B4DetectorConstruction.cc~     B4aSteppingAction.cc
+B4PrimaryGeneratorAction.cc
+$less B4DetectorConstruction.cc  //B4DetectorConstruction.ccの中を見れる。(見るだけ)
+　//lessから戻るときは q 
+$emacs -nw B4DetectorConstruction.cc  //B4DetectorConstruction.ccの中を見れる＆いじれる
+  //emacsから戻るときはCtrl-x Ctrl-c
+$cd ../include  //~/C1/include/に移動
+$ls　//includeの中を見る。ヘッダーファイルが並んでいる。
+B4Analysis.hh                B4RunAction.hh              B4aSteppingAction.hh
+B4DetectorConstruction.hh    B4aActionInitialization.hh
+B4PrimaryGeneratorAction.hh  B4aEventAction.hh
+  //B4Analysis.hh->出力ファイル種類の設定
+$cd ../src/
+$emacs -nw B4DetecterConstruction.cc  //構造物関連をいじる
+　//Ctrl-x Ctrl-s で変更を保存。保存せずにctrl-xcをすると保存するかどうか聞かれる。
+　//B4cでは検出器をMultiFunctionalDetectorに設定して書かれている。
+$emacs -nw B4PrimaryGeneratorAction.cc  //初期粒子の設定変更(種類、エネルギー、ポジションetc)
+$emacs -nw B4RunAction.cc  //出力ヒストグラム、Ntuple関連
+$emacs -nw B4EventAction.cc  //出力ヒストグラム、Ntuple関連
+$cd ../include/
+//同様にコードをいじる
+$cd ~/C1work/　//C1workに移動
+$make  //変更の更新。
+//エラーがあればここに表示される。
+//makeが通っても実行するとcore dump する時もある。→エラーを探す。
+//#includeしてない、定義不足、etc
+$./exampleB4a  //ビジュアライズして構造物が変更した通りになっているか確認。
+$/run/beamOn 1 //設定した粒子をとばす
+$exit //終了
+
+$cd ~/C1/
+$ls
+$emacs -nw CMakeLists.txt  //B4aになっているところをC1に直す
+$cd ~/C1work/
+$make
+$ls //exampleC1になっている
+
+
+<ROOT出力>
+$cd ~/C1work  //workフォルダに移動
+$ls  //C1workの中の.rootファイルがROOT出力ファイル
+$root ほにゃらら.root  //でROOTを開く
+root[].ls
+root[]
+
+<参考>
+・Geant4初心者講習会　https://wiki.kek.jp/display/geant4/Geant4+Japanese+Tutorial+for+Detector+Simulation+2017
+　->Lecture Notes 講義資料の一括ダウンロード
+・Geant4:UserSupport http://geant4.web.cern.ch/support
+  ->8.c Application Developers
+・「たのしくまなぶGeant4」松本さんのページ
+・UNIXコマンド集　http://www.ritsumei.ac.jp/~tomori/unix.html
+・B4を用いた例 http://hepl.shinshu-u.ac.jp/~hasegawa/wiki/index.php?Geant4
+・Linux screenコマンド使い方 https://qiita.com/hnishi/items/3190f2901f88e2594a5f
+・$less /home/rkobayashi/K2/src/ ,$less /home/rmatsumoto/geant4_workdir/ND/src/ 
